@@ -174,7 +174,7 @@ def run(
                         save_c2 = save_c2 + 1
                     if cls == 3:
                         save_c3 = save_c3 + 1
-                    if save_c0 == 10:
+                    if save_c0 == 100:
                         c0 = True
                         xywh = (xyxy2xywh(torch.tensor(xyxy).view(1, 4)) / gn).view(-1).tolist()  # normalized xywh
                         line = (cls, *xywh, conf) if save_conf else (cls, *xywh)  # label format
@@ -183,7 +183,7 @@ def run(
                         save_c0 = 0
                         save_c2 = 0
                         save_c3 = 0
-                    if save_c2 == 10:
+                    if save_c2 == 100:
                         c2 = True
                         xywh = (xyxy2xywh(torch.tensor(xyxy).view(1, 4)) / gn).view(-1).tolist()  # normalized xywh
                         line = (cls, *xywh, conf) if save_conf else (cls, *xywh)  # label format
@@ -192,7 +192,7 @@ def run(
                         save_c0 = 0
                         save_c2 = 0
                         save_c3 = 0
-                    if save_c3 == 10:
+                    if save_c3 == 100:
                         c3 = True
                         xywh = (xyxy2xywh(torch.tensor(xyxy).view(1, 4)) / gn).view(-1).tolist()  # normalized xywh
                         line = (cls, *xywh, conf) if save_conf else (cls, *xywh)  # label format
