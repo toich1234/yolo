@@ -109,7 +109,12 @@ def run(
     # Run inference
     model.warmup(imgsz=(1 if pt else bs, 3, *imgsz))  # warmup
     dt, seen = [0.0, 0.0, 0.0], 0
-    save_c = 0
+    save_c0 = 0
+    save_c2 = 0
+    save_c3 = 0
+    c0 = False
+    c2 = False
+    c3 = False
     for path, im, im0s, vid_cap, s in dataset:
         t1 = time_sync()
         im = torch.from_numpy(im).to(device)
@@ -163,14 +168,39 @@ def run(
 
                 # Write results
                 for *xyxy, conf, cls in reversed(det):
-                    if cls == 1 or cls == 2 or cls == 3:  # Write to file
-                        save_c = save_c + 1
-                        if save_c == 10:
-                            save_img = True
-                            xywh = (xyxy2xywh(torch.tensor(xyxy).view(1, 4)) / gn).view(-1).tolist()  # normalized xywh
-                            line = (cls, *xywh, conf) if save_conf else (cls, *xywh)  # label format
-                            with open(txt_path + '.txt', 'a') as f:
-                                f.write(('%g ' * len(line)).rstrip() % line + '\n')
+                    if cls == 0:  # Write to file    one  outer  pants  top
+                        save_c0 = save_c0 + 1
+                    if cls == 2:
+                        save_c2 = save_c2 + 1
+                    if cls == 3:
+                        save_c3 = save_c3 + 1
+                    if save_c0 == 10:
+                        c0 = True
+                        xywh = (xyxy2xywh(torch.tensor(xyxy).view(1, 4)) / gn).view(-1).tolist()  # normalized xywh
+                        line = (cls, *xywh, conf) if save_conf else (cls, *xywh)  # label format
+                        with open(txt_path + '.txt', 'a') as f:
+                            f.write(('%g ' * len(line)).rstrip() % line + '\n')
+                        save_c0 = 0
+                        save_c2 = 0
+                        save_c3 = 0
+                    if save_c2 == 10:
+                        c2 = True
+                        xywh = (xyxy2xywh(torch.tensor(xyxy).view(1, 4)) / gn).view(-1).tolist()  # normalized xywh
+                        line = (cls, *xywh, conf) if save_conf else (cls, *xywh)  # label format
+                        with open(txt_path + '.txt', 'a') as f:
+                            f.write(('%g ' * len(line)).rstrip() % line + '\n')
+                        save_c0 = 0
+                        save_c2 = 0
+                        save_c3 = 0
+                    if save_c3 == 10:
+                        c3 = True
+                        xywh = (xyxy2xywh(torch.tensor(xyxy).view(1, 4)) / gn).view(-1).tolist()  # normalized xywh
+                        line = (cls, *xywh, conf) if save_conf else (cls, *xywh)  # label format
+                        with open(txt_path + '.txt', 'a') as f:
+                            f.write(('%g ' * len(line)).rstrip() % line + '\n')
+                        save_c0 = 0
+                        save_c2 = 0
+                        save_c3 = 0
 
                     if save_img or save_crop or view_img:  # Add bbox to image
                         c = int(cls)  # integer class
@@ -186,7 +216,7 @@ def run(
                 cv2.waitKey(1)  # 1 millisecond
 
             # Save results (image with detections)
-            if save_img:
+            if c0 or c2 or c3:
                 if dataset.mode == 'image':
                     cv2.imwrite(save_path, im0)
                 else:  # 'video' or 'stream'
@@ -204,7 +234,9 @@ def run(
                         #vid_writer[i] = cv2.VideoWriter(save_path, cv2.VideoWriter_fourcc(*'mp4v'), fps, (w, h))
                     #vid_writer[i].write(im0)
                     cv2.imwrite(save_path, im0)
-                    save_c = 0
+                    c0 = False
+                    c2 = False
+                    c3 = False
                 
 
         # Print time (inference-only)
