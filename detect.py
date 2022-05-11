@@ -161,7 +161,7 @@ def run(
                 # Write results
                 for *xyxy, conf, cls in reversed(det):
                     #if save_txt:  # Write to file
-                    if cls == 0 or cls == 1 or cls == 2 or cls == 3:
+                    if cls == 0 or cls == 1 or cls == 2:
                         save_img = True
                         xywh = (xyxy2xywh(torch.tensor(xyxy).view(1, 4)) / gn).view(-1).tolist()  # normalized xywh
                         line = (cls, *xywh, conf) if save_conf else (cls, *xywh)  # label format
@@ -179,7 +179,7 @@ def run(
             im0 = annotator.result()
             if view_img:
                 cv2.imshow(str(p), im0)
-                cv2.waitKey(1000)  # 1 millisecond
+                cv2.waitKey(1)  # 1 millisecond
 
             # Save results (image with detections)
             if save_img:
@@ -195,11 +195,12 @@ def run(
                             w = int(vid_cap.get(cv2.CAP_PROP_FRAME_WIDTH))
                             h = int(vid_cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
                         else:  # stream
-                            fps, w, h = 1, im0.shape[1], im0.shape[0]
+                            fps, w, h = 30, im0.shape[1], im0.shape[0]
                         #save_path = str(Path(save_path).with_suffix('.mp4'))  # force *.mp4 suffix on results videos
                         #vid_writer[i] = cv2.VideoWriter(save_path, cv2.VideoWriter_fourcc(*'mp4v'), fps, (w, h))
                     #vid_writer[i].write(im0)
                     cv2.imwrite(save_path, im0)
+                cv2.waitKey(1000)
 
         # Print time (inference-only)
         LOGGER.info(f'{s}Done. ({t3 - t2:.3f}s)')
