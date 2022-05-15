@@ -154,7 +154,7 @@ def run(
             s += '%gx%g ' % im.shape[2:]  # print string
             gn = torch.tensor(im0.shape)[[1, 0, 1, 0]]  # normalization gain whwh
             imc = im0.copy() if save_crop else im0  # for save_crop
-            annotator = Annotator(im0, line_width=1, example=str(names))
+            annotator = Annotator(im0, line_width=3, example=str(names))
             save_img = False
             
             if len(det):
@@ -203,13 +203,16 @@ def run(
                         save_c3 = 0'''
 
                     #if save_img or save_crop or view_img:  # Add bbox to image
-                    if cls == 0 or cls == 2 or cls == 3:
+                    if cls == 0:
                         save_c0 = save_c0 + 1
+                    if cls == 2:
                         save_c2 = save_c2 + 1
+                    if cls == 3:
                         save_c3 = save_c3 + 1
-                        c = int(cls)  # integer class
-                        label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
-                        annotator.box_label(xyxy, label, color=colors(c, True))
+ 
+                    c = int(cls)  # integer class
+                    label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
+                    annotator.box_label(xyxy, label, color=colors(c, True))
                         if save_c0 == 30 or save_c2 == 30 or save_c3 == 30:
                             #c = int(cls)  # integer class
                             #label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
@@ -220,6 +223,7 @@ def run(
                             save_c0 == 0
                             save_c2 == 0
                             save_c3 == 0
+                    
 
             # Stream results
             im0 = annotator.result()
