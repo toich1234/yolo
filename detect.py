@@ -211,7 +211,7 @@ def run(
                     c = int(cls)  # integer class
                     label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
                     annotator.box_label(xyxy, label, color=colors(c, True))
-                    if save_c0 >= 300 or save_c2 >= 300 or save_c3 >= 300:
+                    if save_c0 >= 30 or save_c2 >= 30 or save_c3 >= 30:
                         #c = int(cls)  # integer class
                         #label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
                         #annotator.box_label(xyxy, label, color=colors(c, True))
@@ -219,9 +219,9 @@ def run(
                         #save_one_box(xyxy, imc, file=save_dir / 'crops' / names[c] / f'{p.stem}.jpg', BGR=True)
                         pic = pic + 1
                         save_one_box(xyxy, imc, file=save_dir / 'crops' / f'{pic}.jpg', BGR=True)
-                        save_c0 == 0
-                        save_c2 == 0
-                        save_c3 == 0
+                        save_c0 = 0
+                        save_c2 = 0
+                        save_c3 = 0
                     
 
             # Stream results
