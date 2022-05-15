@@ -211,7 +211,7 @@ def run(
                     c = int(cls)  # integer class
                     label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
                     annotator.box_label(xyxy, label, color=colors(c, True))
-                    if save_c0 >= 30 or save_c2 >= 30 or save_c3 >= 30:
+                    if save_c0 >= 100 or save_c2 >= 100 or save_c3 >= 100:
                         #c = int(cls)  # integer class
                         #label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
                         #annotator.box_label(xyxy, label, color=colors(c, True))
@@ -228,7 +228,7 @@ def run(
             im0 = annotator.result()
             if view_img:
                 cv2.imshow(str(p), im0)
-                cv2.waitKey(1)  # 1 millisecond
+                cv2.waitKey(10)  # 1 millisecond
 
             # Save results (image with detections)
             '''if c0 or c2 or c3:
