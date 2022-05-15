@@ -211,7 +211,7 @@ def run(
                     c = int(cls)  # integer class
                     label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
                     annotator.box_label(xyxy, label, color=colors(c, True))
-                    if save_c0 >= 5 or save_c2 >= 5 or save_c3 >= 5:
+                    if save_c0 >= 30 or save_c2 >= 30 or save_c3 >= 30:
                         #c = int(cls)  # integer class
                         #label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
                         #annotator.box_label(xyxy, label, color=colors(c, True))
