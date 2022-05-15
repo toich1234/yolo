@@ -86,8 +86,8 @@ def run(
     # Directories
     save_dir = increment_path(Path(project) / name, exist_ok=exist_ok)  # increment run
     #(save_dir / 'labels' if save_txt else save_dir).mkdir(parents=True, exist_ok=True)  # make dir
-    (save_dir / 'labels').mkdir(parents=True, exist_ok=True)
-    (save_dir / 'images').mkdir(parents=True, exist_ok=True)
+    #(save_dir / 'labels').mkdir(parents=True, exist_ok=True)
+    #(save_dir / 'images').mkdir(parents=True, exist_ok=True)
 
     # Load model
     device = select_device(device)
@@ -207,13 +207,16 @@ def run(
                         save_c0 = save_c0 + 1
                         save_c2 = save_c2 + 1
                         save_c3 = save_c3 + 1
+                        c = int(cls)  # integer class
+                        label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
                         annotator.box_label(xyxy, label, color=colors(c, True))
                         if save_c0 == 30 or save_c2 == 30 or save_c3 == 30:
-                            c = int(cls)  # integer class
-                            label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
+                            #c = int(cls)  # integer class
+                            #label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
                             #annotator.box_label(xyxy, label, color=colors(c, True))
                             #if save_crop:
-                            save_one_box(xyxy, imc, file=save_dir / 'crops' / names[c] / f'{p.stem}.jpg', BGR=True)
+                            #save_one_box(xyxy, imc, file=save_dir / 'crops' / names[c] / f'{p.stem}.jpg', BGR=True)
+                            save_one_box(xyxy, imc, file=save_dir / 'crops' / f'{p.stem}.jpg', BGR=True)
                             save_c0 == 0
                             save_c2 == 0
                             save_c3 == 0
