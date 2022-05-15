@@ -59,7 +59,7 @@ def run(
         view_img=True,  # show results
         save_txt=True,  # save results to *.txt
         save_conf=False,  # save confidences in --save-txt labels
-        save_crop=False,  # save cropped prediction boxes
+        save_crop=True,  # save cropped prediction boxes
         nosave=False,  # do not save images/videos
         classes=None,  # filter by class: --class 0, or --class 0 2 3
         agnostic_nms=False,  # class-agnostic NMS
@@ -154,7 +154,7 @@ def run(
             s += '%gx%g ' % im.shape[2:]  # print string
             gn = torch.tensor(im0.shape)[[1, 0, 1, 0]]  # normalization gain whwh
             imc = im0.copy() if save_crop else im0  # for save_crop
-            annotator = Annotator(im0, line_width=1, example=str(names))
+            annotator = Annotator(im0, line_width=2, example=str(names))
             save_img = False
             
             if len(det):
@@ -168,7 +168,7 @@ def run(
 
                 # Write results
                 for *xyxy, conf, cls in reversed(det):
-                    if cls == 0:  # Write to file    one  outer  pants  top
+                    '''if cls == 0:  # Write to file    one  outer  pants  top
                         save_c0 = save_c0 + 1
                     if cls == 2:
                         save_c2 = save_c2 + 1
@@ -200,13 +200,18 @@ def run(
                             f.write(('%g ' * len(line)).rstrip() % line + '\n')
                         save_c0 = 0
                         save_c2 = 0
-                        save_c3 = 0
+                        save_c3 = 0'''
 
-                    if save_img or save_crop or view_img:  # Add bbox to image
-                        c = int(cls)  # integer class
-                        label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
-                        annotator.box_label(xyxy, label, color=colors(c, True))
-                        if save_crop:
+                    #if save_img or save_crop or view_img:  # Add bbox to image
+                    if cls == 0 or cls == 2 or cls == 3:
+                        save_c0 = save_c0 + 1
+                        save_c2 = save_c2 + 1
+                        save_c3 = save_c3 + 1
+                        if save_c0 == 30 or save_c2 == 30 or save_c3 == 30:
+                            c = int(cls)  # integer class
+                            label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
+                            annotator.box_label(xyxy, label, color=colors(c, True))
+                            #if save_crop:
                             save_one_box(xyxy, imc, file=save_dir / 'crops' / names[c] / f'{p.stem}.jpg', BGR=True)
 
             # Stream results
@@ -216,7 +221,7 @@ def run(
                 cv2.waitKey(1)  # 1 millisecond
 
             # Save results (image with detections)
-            if c0 or c2 or c3:
+            '''if c0 or c2 or c3:
                 if dataset.mode == 'image':
                     cv2.imwrite(save_path, im0)
                 else:  # 'video' or 'stream'
@@ -236,7 +241,8 @@ def run(
                     cv2.imwrite(save_path, im0)
                     c0 = False
                     c2 = False
-                    c3 = False
+                    c3 = False'''
+                
                 
 
         # Print time (inference-only)
