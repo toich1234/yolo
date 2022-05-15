@@ -149,12 +149,12 @@ def run(
 
             p = Path(p)  # to Path
             #save_path = str(save_dir / p.name)  # im.jpg
-            save_path = str(save_dir / 'images' / p.stem) + f'_{frame}' + '.jpg'
-            txt_path = str(save_dir / 'labels' / p.stem) + ('' if dataset.mode == 'image' else f'_{frame}')  # im.txt
+            #save_path = str(save_dir / 'images' / p.stem) + f'_{frame}' + '.jpg'
+            #txt_path = str(save_dir / 'labels' / p.stem) + ('' if dataset.mode == 'image' else f'_{frame}')  # im.txt
             s += '%gx%g ' % im.shape[2:]  # print string
             gn = torch.tensor(im0.shape)[[1, 0, 1, 0]]  # normalization gain whwh
             imc = im0.copy() if save_crop else im0  # for save_crop
-            annotator = Annotator(im0, line_width=2, example=str(names))
+            annotator = Annotator(im0, line_width=1, example=str(names))
             save_img = False
             
             if len(det):
@@ -207,12 +207,16 @@ def run(
                         save_c0 = save_c0 + 1
                         save_c2 = save_c2 + 1
                         save_c3 = save_c3 + 1
+                        annotator.box_label(xyxy, label, color=colors(c, True))
                         if save_c0 == 30 or save_c2 == 30 or save_c3 == 30:
                             c = int(cls)  # integer class
                             label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
-                            annotator.box_label(xyxy, label, color=colors(c, True))
+                            #annotator.box_label(xyxy, label, color=colors(c, True))
                             #if save_crop:
                             save_one_box(xyxy, imc, file=save_dir / 'crops' / names[c] / f'{p.stem}.jpg', BGR=True)
+                            save_c0 == 0
+                            save_c2 == 0
+                            save_c3 == 0
 
             # Stream results
             im0 = annotator.result()
