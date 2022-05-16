@@ -70,7 +70,7 @@ def run(
         name='exp',  # save results to project/name
         exist_ok=False,  # existing project/name ok, do not increment
         line_thickness=2,  # bounding box thickness (pixels)
-        hide_labels=True,  # hide labels
+        hide_labels=False,  # hide labels
         hide_conf=False,  # hide confidences
         half=False,  # use FP16 half-precision inference
         dnn=False,  # use OpenCV DNN for ONNX inference
@@ -192,7 +192,7 @@ def run(
                         save_c3 = save_c3 + 1
  
                     c = int(cls)  # integer class
-                    label = None # if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
+                    label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
                     annotator.box_label(xyxy, label, color=colors(c, True))
                     if save_c0 >= 10 or save_c2 >= 10 or save_c3 >= 10:
                         #c = int(cls)  # integer class
@@ -208,9 +208,9 @@ def run(
                     
 
             # Stream results
-            im0 = annotator.result()
+            im1 = annotator.result()
             if view_img:
-                cv2.imshow(str(p), im0)
+                cv2.imshow(str(p), im1)
                 cv2.waitKey(10)  # 1 millisecond
 
             # Save results (image with detections)
