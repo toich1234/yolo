@@ -201,16 +201,16 @@ def run(
                         #if save_crop:
                         #save_one_box(xyxy, imc, file=save_dir / 'crops' / names[c] / f'{p.stem}.jpg', BGR=True)
                         pic = pic + 1
-                        save_one_box(xyxy, im0, file=save_dir / 'crops' / f'{pic}.jpg', BGR=True)
+                        save_one_box(xyxy, imc, file=save_dir / 'crops' / f'{pic}.jpg', BGR=True)
                         save_c0 = 0
                         save_c2 = 0
                         save_c3 = 0
                     
 
             # Stream results
-            im1 = annotator.result()
+            #im0 = annotator.result()
             if view_img:
-                cv2.imshow(str(p), im1)
+                cv2.imshow(str(p), im0)
                 cv2.waitKey(10)  # 1 millisecond
 
             # Save results (image with detections)
