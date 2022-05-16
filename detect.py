@@ -208,9 +208,9 @@ def run(
                     
 
             # Stream results
-            im0 = annotator.result()
+            #im0 = annotator.result()
             if view_img:
-                cv2.imshow(str(p), im0)
+                cv2.imshow(str(p), annotator.result())
                 cv2.waitKey(10)  # 1 millisecond
 
             # Save results (image with detections)
