@@ -152,7 +152,7 @@ def run(
             s += '%gx%g ' % im.shape[2:]  # print string
             gn = torch.tensor(im0.shape)[[1, 0, 1, 0]]  # normalization gain whwh
             imc = im0.copy() if save_crop else im0  # for save_crop
-            annotator = Annotator(im0, line_width=3, example=str(names))
+            annotator = Annotator(im0, line_width=2, example=str(names))
             save_img = False
             
             if len(det):
@@ -181,24 +181,7 @@ def run(
                         save_c0 = 0
                         save_c2 = 0
                         save_c3 = 0
-                    if save_c2 == 100:
-                        c2 = True
-                        xywh = (xyxy2xywh(torch.tensor(xyxy).view(1, 4)) / gn).view(-1).tolist()  # normalized xywh
-                        line = (cls, *xywh, conf) if save_conf else (cls, *xywh)  # label format
-                        with open(txt_path + '.txt', 'a') as f:
-                            f.write(('%g ' * len(line)).rstrip() % line + '\n')
-                        save_c0 = 0
-                        save_c2 = 0
-                        save_c3 = 0
-                    if save_c3 == 100:
-                        c3 = True
-                        xywh = (xyxy2xywh(torch.tensor(xyxy).view(1, 4)) / gn).view(-1).tolist()  # normalized xywh
-                        line = (cls, *xywh, conf) if save_conf else (cls, *xywh)  # label format
-                        with open(txt_path + '.txt', 'a') as f:
-                            f.write(('%g ' * len(line)).rstrip() % line + '\n')
-                        save_c0 = 0
-                        save_c2 = 0
-                        save_c3 = 0'''
+                    '''
 
                     #if save_img or save_crop or view_img:  # Add bbox to image
                     if cls == 0:
