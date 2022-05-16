@@ -201,7 +201,7 @@ def run(
                         #if save_crop:
                         #save_one_box(xyxy, imc, file=save_dir / 'crops' / names[c] / f'{p.stem}.jpg', BGR=True)
                         pic = pic + 1
-                        save_one_box(xyxy, imc, file=save_dir / 'crops' / f'{pic}.jpg', BGR=True)
+                        save_one_box(xyxy, im0, file=save_dir / 'crops' / f'{pic}.jpg', BGR=True)
                         save_c0 = 0
                         save_c2 = 0
                         save_c3 = 0
