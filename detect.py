@@ -69,8 +69,8 @@ def run(
         project=ROOT / 'runs/detect',  # save results to project/name
         name='exp',  # save results to project/name
         exist_ok=False,  # existing project/name ok, do not increment
-        line_thickness=1,  # bounding box thickness (pixels)
-        hide_labels=False,  # hide labels
+        line_thickness=2,  # bounding box thickness (pixels)
+        hide_labels=True,  # hide labels
         hide_conf=False,  # hide confidences
         half=False,  # use FP16 half-precision inference
         dnn=False,  # use OpenCV DNN for ONNX inference
@@ -208,9 +208,9 @@ def run(
                     
 
             # Stream results
-            #im0 = annotator.result()
+            im0 = annotator.result()
             if view_img:
-                cv2.imshow(str(p), annotator.result())
+                cv2.imshow(str(p), im0)
                 cv2.waitKey(10)  # 1 millisecond
 
             # Save results (image with detections)
