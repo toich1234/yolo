@@ -216,16 +216,7 @@ def run(
                     '''
 
                     #if save_img or save_crop or view_img:  # Add bbox to image
-                    if cls == 0:
-                        save_c0 = save_c0 + 1
-                    if cls == 2:
-                        save_c2 = save_c2 + 1
-                    if cls == 3:
-                        save_c3 = save_c3 + 1
- 
-                    c = int(cls)  # integer class
-                    label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
-                    annotator.box_label(xyxy, label, color=colors(c, True))
+                    
                     if save_c0 >= 10 or save_c2 >= 10 or save_c3 >= 10:
                         #c = int(cls)  # integer class
                         #label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
@@ -252,6 +243,33 @@ def run(
                             out = model1(img)
                             label1 = torch.argmax(out, dim=-1)
                             print(label1)
+                            
+                            
+                            
+                    if cls == 0:
+                        save_c0 = save_c0 + 1
+                    if cls == 2:
+                        save_c2 = save_c2 + 1
+                    if cls == 3:
+                        save_c3 = save_c3 + 1
+                        
+                    if label1 == [0]:
+                        label_a = 'Water'
+                    if label1 == [1]:
+                        label_a = 'Wool'
+                    if label1 == [2]:
+                        label_a = 'Dry Cleaning'
+                    if label1 == [3]:
+                        label_a = 'etc'
+                        
+                    
+ 
+                    c = int(label1)  # integer class
+                    #label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
+                    annotator.box_label(xyxy, label_a, color=colors(c, True))
+            
+            
+            
                     #data_dir = save_dir / 'crops' / f'{pic}.jpg'
                     #image_files = []
                     #for file in os.listdir(data_dir):
