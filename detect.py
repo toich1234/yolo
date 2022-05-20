@@ -240,7 +240,7 @@ def run(
                         
                         
                         
-                        data_dir = save_dir\crops\pic.jpg
+                        data_dir = save_dir\crops\f'{pic}.jpg'
                         #image_files = []
                         #for file in os.listdir(data_dir):
                         #    image_files.append(os.path.join(data_dir, file))
@@ -251,7 +251,7 @@ def run(
                         #file_list=[]
                         #for file in image_files:
                         #    file_list.append(file.split("\\")[-1])
-                        img = Image.open(data_dir)
+                        img = Image.open(f"{data_dir}")
                         img = transforms.ToTensor()(img)
                         img = transforms.Normalize((0.1307,),(0.3081,))(img)
                         img = transforms.Resize((200,200))(img) #,Image.BILINEAR
