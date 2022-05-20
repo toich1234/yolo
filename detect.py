@@ -240,7 +240,7 @@ def run(
                         
                         
                         
-                        data_dir = C:\Users\toich\yolo\runs\detect\exp\crops\pic.jpg
+                        data_dir = save_dir\crops\pic.jpg
                         #image_files = []
                         #for file in os.listdir(data_dir):
                         #    image_files.append(os.path.join(data_dir, file))
