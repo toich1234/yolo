@@ -51,7 +51,9 @@ class efficientnet_b2(nn.Module): #Resnet50
 
 save_dir1=r'E:\KyungHee\K-Fashion'
 model = efficientnet_b2(num_classes=4)
-
+device = torch.device('cpu')
+model.load_state_dict(torch.load(f"{save_dir1}/best.pth", map_location=device))
+model.eval()
 
 
 import argparse
@@ -237,37 +239,35 @@ def run(
                         save_c3 = 0
                         
                        
-                    device = torch.device('cpu')
-                    model.load_state_dict(torch.load(f"{save_dir1}/best.pth", map_location=device))
-                    model.eval()
-                    data_dir = save_dir/crops/f'{pic}.jpg'
-                    #image_files = []
-                    #for file in os.listdir(data_dir):
-                    #    image_files.append(os.path.join(data_dir, file))
-                    #print(len(image_files))
+                   
+                        data_dir = save_dir/crops/f'{pic}.jpg'
+                        #image_files = []
+                        #for file in os.listdir(data_dir):
+                        #    image_files.append(os.path.join(data_dir, file))
+                        #print(len(image_files))
 
 
-                    out_list=[]
-                    file_list=[]
-                    #for file in image_files:
-                    #    file_list.append(file.split("\\")[-1])
-                    img = Image.open(data_dir)
-                    img = transforms.ToTensor()(img)
-                    img = transforms.Normalize((0.1307,),(0.3081,))(img)
-                    img = transforms.Resize((200,200))(img) #,Image.BILINEAR
-                    #out_list.append(img)
-                    #plt.imshow(out_list[0].permute(1,2,0))
+                        out_list=[]
+                        file_list=[]
+                        #for file in image_files:
+                        #    file_list.append(file.split("\\")[-1])
+                        img = Image.open(data_dir)
+                        img = transforms.ToTensor()(img)
+                        img = transforms.Normalize((0.1307,),(0.3081,))(img)
+                        img = transforms.Resize((200,200))(img) #,Image.BILINEAR
+                        #out_list.append(img)
+                        #plt.imshow(out_list[0].permute(1,2,0))
 
-                    #output = torch.stack(out_list, dim=0)
-                    #print(output.shape)
-                    out = model(img)
-                    label = torch.argmax(out, dim=-1)
-                    #print(file_list)
-                    print(label)
-                    # output = torc
+                        #output = torch.stack(out_list, dim=0)
+                        #print(output.shape)
+                        out = model(img)
+                        label = torch.argmax(out, dim=-1)
+                        #print(file_list)
+                        print(label)
+                        # output = torc
 
 
-                    # print(img.shape)
+                        # print(img.shape)
 
             # Stream results
             im0 = annotator.result()
