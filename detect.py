@@ -240,7 +240,7 @@ def run(
                         
                         
                         
-                        data_dir = save_dir\crops\f'{pic}.jpg'
+                        data_dir = save_dir / 'crops' / f'{pic}.jpg'
                         #image_files = []
                         #for file in os.listdir(data_dir):
                         #    image_files.append(os.path.join(data_dir, file))
