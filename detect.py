@@ -249,8 +249,8 @@ def run(
                             img = transforms.Normalize((0.1307,),(0.3081,))(img)
                             img = transforms.Resize((200,200))(img) #,Image.BILINEAR
                             out = model(img)
-                            label = torch.argmax(out, dim=-1)
-                            print(label)
+                            label1 = torch.argmax(out, dim=-1)
+                            print(label1)
                     #data_dir = save_dir / 'crops' / f'{pic}.jpg'
                     #image_files = []
                     #for file in os.listdir(data_dir):
