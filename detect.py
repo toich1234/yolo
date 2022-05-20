@@ -237,7 +237,7 @@ def run(
                         save_c0 = 0
                         save_c2 = 0
                         save_c3 = 0
-                      #json폴더 하위 파일 이름 리스트 생성
+
     
                     if pic > 0:
                         data_dir = r"C:/Users/toich/yolo/runs/detect/exp/crops"  
@@ -262,19 +262,19 @@ def run(
                     #file_list=[]
                     #for file in image_files:
                     #    file_list.append(file.split("\\")[-1])
-                    img = Image.open(f"{data_dir}")
-                    img = transforms.ToTensor()(img)
-                    img = transforms.Normalize((0.1307,),(0.3081,))(img)
-                    img = transforms.Resize((200,200))(img) #,Image.BILINEAR
+                    #img = Image.open(f"{data_dir}")
+                    #img = transforms.ToTensor()(img)
+                    #img = transforms.Normalize((0.1307,),(0.3081,))(img)
+                    #img = transforms.Resize((200,200))(img) #,Image.BILINEAR
                     #out_list.append(img)
                     #plt.imshow(out_list[0].permute(1,2,0))
 
                     #output = torch.stack(out_list, dim=0)
                     #print(output.shape)
-                    out = model(img)
-                    label = torch.argmax(out, dim=-1)
+                    #out = model(img)
+                    #label = torch.argmax(out, dim=-1)
                     #print(file_list)
-                    print(label)
+                    #print(label)
                     # output = torc
 
 
