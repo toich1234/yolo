@@ -23,6 +23,36 @@ Usage - formats:
                                          yolov5s.tflite             # TensorFlow Lite
                                          yolov5s_edgetpu.tflite     # TensorFlow Edge TPU
 """
+import cv2
+import matplotlib.pyplot as plt
+from PIL import Image
+import torchvision
+from torchvision.models import efficientnet_b2
+from torchvision.transforms import transforms
+from torchvision.transforms import ToTensor, Lambda
+import torch
+import torch.nn as nn
+import os
+from torch.utils.data import Dataset, DataLoader
+from torchvision import datasets
+
+
+class efficientnet_b2(nn.Module): #Resnet50
+    def __init__(self, num_classes):
+        super().__init__()
+        self.model = torchvision.models.efficientnet_b2(pretrained=True) #50
+
+
+        self.fc = nn.Linear(1000, num_classes) #1000
+
+    def forward(self, x):
+        x = self.model(x)
+        return self.fc(x)
+
+save_dir1=r'E:\KyungHee\K-Fashion'
+model = efficientnet_b2(num_classes=4)
+
+
 
 import argparse
 import os
@@ -205,7 +235,39 @@ def run(
                         save_c0 = 0
                         save_c2 = 0
                         save_c3 = 0
-                    
+                        
+                       
+                    device = torch.device('cpu')
+                    model.load_state_dict(torch.load(f"{save_dir1}/best.pth", map_location=device))
+                    model.eval()
+                    data_dir = save_dir/crops/f'{pic}.jpg'
+                    #image_files = []
+                    #for file in os.listdir(data_dir):
+                    #    image_files.append(os.path.join(data_dir, file))
+                    #print(len(image_files))
+
+
+                    out_list=[]
+                    file_list=[]
+                    #for file in image_files:
+                    #    file_list.append(file.split("\\")[-1])
+                    img = Image.open(data_dir)
+                    img = transforms.ToTensor()(img)
+                    img = transforms.Normalize((0.1307,),(0.3081,))(img)
+                    img = transforms.Resize((200,200))(img) #,Image.BILINEAR
+                    #out_list.append(img)
+                    #plt.imshow(out_list[0].permute(1,2,0))
+
+                    #output = torch.stack(out_list, dim=0)
+                    #print(output.shape)
+                    out = model(img)
+                    label = torch.argmax(out, dim=-1)
+                    #print(file_list)
+                    print(label)
+                    # output = torc
+
+
+                    # print(img.shape)
 
             # Stream results
             im0 = annotator.result()
@@ -213,7 +275,22 @@ def run(
                 cv2.namedWindow(str(p), cv2.WINDOW_NORMAL)
                 cv2.imshow(str(p), im0)
                 cv2.waitKey(10)  # 1 millisecond
+                
+                
+            
+            
+            
+            
+            
+            
+            
 
+
+            
+            
+            
+            
+            
             # Save results (image with detections)
             '''if c0 or c2 or c3:
                 if dataset.mode == 'image':
