@@ -240,15 +240,15 @@ def run(
                         
                        
                    
-                        data_dir = save_dir / 'crops' / f'{pic}.jpg'
+                        data_dir = C:\Users\toich\yolo\runs\detect\exp\crops\f'{pic}.jpg'
                         #image_files = []
                         #for file in os.listdir(data_dir):
                         #    image_files.append(os.path.join(data_dir, file))
                         #print(len(image_files))
 
 
-                        out_list=[]
-                        file_list=[]
+                        #out_list=[]
+                        #file_list=[]
                         #for file in image_files:
                         #    file_list.append(file.split("\\")[-1])
                         img = Image.open(data_dir)
