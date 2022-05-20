@@ -240,7 +240,7 @@ def run(
                       #json폴더 하위 파일 이름 리스트 생성
     
                     if pic > 0:
-                        data_dir = C:\Users\toich\yolo\runs\detect\exp\crops  
+                        data_dir = r"C:/Users/toich/yolo/runs/detect/exp/crops"  
                         list_j=os.listdir(data_dir)
                         len_j=len(list_j)
                         if len_j == pic:
