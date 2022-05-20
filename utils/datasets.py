@@ -177,7 +177,7 @@ class _RepeatSampler:
 
 class LoadImages:
     # YOLOv5 image/video dataloader, i.e. `python detect.py --source image.jpg/vid.mp4`
-    def __init__(self, path, img_size=1088, stride=32, auto=True):
+    def __init__(self, path, img_size=640, stride=32, auto=True):
         p = str(Path(path).resolve())  # os-agnostic absolute path
         if '*' in p:
             files = sorted(glob.glob(p, recursive=True))  # glob
@@ -259,7 +259,7 @@ class LoadImages:
 
 class LoadWebcam:  # for inference
     # YOLOv5 local webcam dataloader, i.e. `python detect.py --source 0`
-    def __init__(self, pipe='0', img_size=1088, stride=32):
+    def __init__(self, pipe='0', img_size=640, stride=32):
         self.img_size = img_size
         self.stride = stride
         self.pipe = eval(pipe) if pipe.isnumeric() else pipe
@@ -301,7 +301,7 @@ class LoadWebcam:  # for inference
 
 class LoadStreams:
     # YOLOv5 streamloader, i.e. `python detect.py --source 'rtsp://example.com/media.mp4'  # RTSP, RTMP, HTTP streams`
-    def __init__(self, sources='streams.txt', img_size=1088, stride=32, auto=True):
+    def __init__(self, sources='streams.txt', img_size=640, stride=32, auto=True):
         self.mode = 'stream'
         self.img_size = img_size
         self.stride = stride
@@ -400,7 +400,7 @@ class LoadImagesAndLabels(Dataset):
 
     def __init__(self,
                  path,
-                 img_size=1088,
+                 img_size=640,
                  batch_size=16,
                  augment=False,
                  hyp=None,
