@@ -255,16 +255,16 @@ def run(
                     label1 = None    
                     label_a = None
                     c1 = None
-                    if label1 == tensor([0]):
+                    if torch.eq(label1, tensor([0])):
                         label_a = 'Water'
                         c1 = 0
-                    if label1 == tensor([1]):
+                    if torch.eq(label1, tensor([1])):
                         label_a = 'Wool'
                         c1 = 1
-                    if label1 == tensor([2]):
+                    if torch.eq(label1, tensor([2])):
                         label_a = 'Dry Cleaning'
                         c1 = 2
-                    if label1 == tensor([3]):
+                    if torch.eq(label1, tensor([3])):
                         label_a = 'etc'
                         c1 = 3
                         
