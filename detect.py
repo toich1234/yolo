@@ -253,6 +253,7 @@ def run(
                     if cls == 3:
                         save_c3 = save_c3 + 1
                     label1 = None    
+                    label_a = None
                     c1 = None
                     if label1 == [0]:
                         label_a = 'Water'
