@@ -272,7 +272,8 @@ def run(
  
                     #c = int(cls)  # integer class
                     #label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
-                    annotator.box_label(xyxy, label_a, color=colors(c1, True))
+                    if pic > 0:
+                        annotator.box_label(xyxy, label_a, color=colors(c1, True))
             
             
             
