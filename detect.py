@@ -248,6 +248,7 @@ def run(
                             img = transforms.ToTensor()(img)
                             img = transforms.Normalize((0.1307,),(0.3081,))(img)
                             img = transforms.Resize((200,200))(img) #,Image.BILINEAR
+                            img = img.unsqueeze(dim=0)
                             out = model1(img)
                             label1 = torch.argmax(out, dim=-1)
                             print(label1)
