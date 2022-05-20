@@ -25,7 +25,7 @@ def check_anchor_order(m):
         m.anchors[:] = m.anchors.flip(0)
 
 
-def check_anchors(dataset, model, thr=4.0, imgsz=640):
+def check_anchors(dataset, model, thr=4.0, imgsz=1088):
     # Check anchor fit to data, recompute if necessary
     m = model.module.model[-1] if hasattr(model, 'module') else model.model[-1]  # Detect()
     shapes = imgsz * dataset.shapes / dataset.shapes.max(1, keepdims=True)
@@ -65,7 +65,7 @@ def check_anchors(dataset, model, thr=4.0, imgsz=640):
         LOGGER.info(emojis(s))
 
 
-def kmean_anchors(dataset='./data/coco128.yaml', n=9, img_size=640, thr=4.0, gen=1000, verbose=True):
+def kmean_anchors(dataset='./data/coco128.yaml', n=9, img_size=1088, thr=4.0, gen=1000, verbose=True):
     """ Creates kmeans-evolved anchors from training dataset
 
         Arguments:
