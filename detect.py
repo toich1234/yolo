@@ -151,7 +151,7 @@ def run(
             #txt_path = str(save_dir / 'labels' / p.stem) + ('' if dataset.mode == 'image' else f'_{frame}')  # im.txt
             s += '%gx%g ' % im.shape[2:]  # print string
             gn = torch.tensor(im0.shape)[[1, 0, 1, 0]]  # normalization gain whwh
-            imc = im0.copy() if save_crop else im0  # for save_crop
+            imc = im0s[i].copy() #if save_crop else im0  # for save_crop
             annotator = Annotator(im0, line_width=2, example=str(names))
             save_img = False
             
@@ -193,7 +193,7 @@ def run(
  
                     c = int(cls)  # integer class
                     label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
-                    #annotator.box_label(xyxy, label, color=colors(c, True))
+                    annotator.box_label(xyxy, label, color=colors(c, True))
                     if save_c0 >= 10 or save_c2 >= 10 or save_c3 >= 10:
                         #c = int(cls)  # integer class
                         #label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
@@ -208,7 +208,7 @@ def run(
                     
 
             # Stream results
-            #im0 = annotator.result()
+            im0 = annotator.result()
             if view_img:
                 cv2.imshow(str(p), im0)
                 cv2.waitKey(10)  # 1 millisecond
