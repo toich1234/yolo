@@ -99,7 +99,7 @@ def run(
     if webcam:
         view_img = check_imshow()
         cudnn.benchmark = True  # set True to speed up constant image size inference
-        dataset = LoadWebcam(source, img_size=imgsz, stride=stride, auto=pt)
+        dataset = LoadWebcam(source, img_size=imgsz, stride=stride)
         bs = len(dataset)  # batch_size
     else:
         dataset = LoadImages(source, img_size=imgsz, stride=stride, auto=pt)
