@@ -230,6 +230,9 @@ def run(
                         save_c3 = 0
 
     
+                    label1 = torch.tensor([-1])    
+                    label_a = None
+                    c1 = None
                     if pic > 0:
                         data_dir = r"C:/Users/toich/yolo/runs/detect/exp/crops"  
                         list_j=os.listdir(data_dir)
@@ -252,9 +255,7 @@ def run(
                         save_c2 = save_c2 + 1
                     if cls == 3:
                         save_c3 = save_c3 + 1
-                    label1 = torch.tensor([-1])    
-                    label_a = None
-                    c1 = None
+                    
                     if torch.eq(label1, torch.tensor([0])):
                         label_a = 'Water'
                         c1 = 0
@@ -272,7 +273,7 @@ def run(
  
                     #c = int(cls)  # integer class
                     #label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
-                    if pic > 0:
+                    if pic > 0 and label_a != None:
                         annotator.box_label(xyxy, label_a, color=colors(c1, True))
             
             
