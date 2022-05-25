@@ -252,7 +252,7 @@ def run(
                         save_c2 = save_c2 + 1
                     if cls == 3:
                         save_c3 = save_c3 + 1
-                    label1 = None    
+                    label1 = torch.tensor([-1])    
                     label_a = None
                     c1 = None
                     if torch.eq(label1, torch.tensor([0])):
