@@ -35,7 +35,7 @@ import torch.nn as nn
 import os
 from torch.utils.data import Dataset, DataLoader
 from torchvision import datasets
-
+import numpy as np
 
 class efficientnet_b2(nn.Module): #Resnet50
     def __init__(self, num_classes):
@@ -255,16 +255,16 @@ def run(
                     label1 = None    
                     label_a = None
                     c1 = None
-                    if torch.eq(label1, tensor([0])):
+                    if torch.eq(label1, torch.tensor([0])):
                         label_a = 'Water'
                         c1 = 0
-                    if torch.eq(label1, tensor([1])):
+                    if torch.eq(label1, torch.tensor([1])):
                         label_a = 'Wool'
                         c1 = 1
-                    if torch.eq(label1, tensor([2])):
+                    if torch.eq(label1, torch.tensor([2])):
                         label_a = 'Dry Cleaning'
                         c1 = 2
-                    if torch.eq(label1, tensor([3])):
+                    if torch.eq(label1, torch.tensor([3])):
                         label_a = 'etc'
                         c1 = 3
                         
@@ -313,18 +313,6 @@ def run(
                 cv2.imshow(str(p), im0)
                 cv2.waitKey(10)  # 1 millisecond
                 
-                
-            
-            
-            
-            
-            
-            
-            
-
-
-            
-            
             
             
             
