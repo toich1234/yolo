@@ -276,7 +276,8 @@ def run(
                     if pic > 0 and label_a != None:
                         annotator.box_label(xyxy, label_a, color=colors(c1, True))
             
-            
+                    if pic > 10:
+                        cv2.destroyAllWindows()
             
                     #data_dir = save_dir / 'crops' / f'{pic}.jpg'
                     #image_files = []
