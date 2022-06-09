@@ -243,15 +243,15 @@ def run(
                         data_dir = r"C:/Users/toich/yolo/runs/detect/exp/crops"  
                         list_j=os.listdir(data_dir)
                         len_j=len(list_j)
-                        if len_j == pic:
-                            img = Image.open(data_dir + '/' + list_j[pic-1])
-                            img = transforms.ToTensor()(img)
-                            img = transforms.Normalize((0.1307,),(0.3081,))(img)
-                            img = transforms.Resize((224,224))(img) #,Image.BILINEAR
-                            img = img.unsqueeze(dim=0)
-                            out = model1(img)
-                            label1 = torch.argmax(out, dim=-1)
-                            print(label1)
+                        #if len_j == pic:
+                        img = Image.open(data_dir + '/' + list_j[pic-1])
+                        img = transforms.ToTensor()(img)
+                        img = transforms.Normalize((0.1307,),(0.3081,))(img)
+                        img = transforms.Resize((224,224))(img) #,Image.BILINEAR
+                        img = img.unsqueeze(dim=0)
+                        out = model1(img)
+                        label1 = torch.argmax(out, dim=-1)
+                        print(label1)
                             
                             
                             
