@@ -49,11 +49,7 @@ class efficientnet_b2(nn.Module): #Resnet50
         x = self.model(x)
         return self.fc(x)
 
-save_dir1=r'E:\KyungHee\K-Fashion'
-model1 = efficientnet_b2(num_classes=4)
-device = torch.device('cpu')
-model1.load_state_dict(torch.load(f"{save_dir1}/best.pth", map_location=device))
-model1.eval()
+
 
 
 import argparse
@@ -234,6 +230,13 @@ def run(
                     label_a = None
                     c1 = None
                     if pic > 0:
+                        save_dir1=r'E:\KyungHee\K-Fashion'
+                        model1 = efficientnet_b2(num_classes=4)
+                        device = torch.device('cpu')
+                        model1.load_state_dict(torch.load(f"{save_dir1}/best.pth", map_location=device))
+                        model1.eval()
+                        
+                        
                         data_dir = r"C:/Users/toich/yolo/runs/detect/exp/crops"  
                         list_j=os.listdir(data_dir)
                         len_j=len(list_j)
