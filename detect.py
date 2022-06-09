@@ -238,7 +238,7 @@ def run(
                         save_c3 = 0
                         
                         model1 = efficientnet_b2(num_classes=4)
-                        device = torch.device('cuda')
+                        #device = torch.device('cuda')
 
                         model1.load_state_dict(torch.load(f"{save_dir1}/best.pth", map_location=device))
                         model1.eval()
@@ -255,6 +255,7 @@ def run(
                         img1 = img1.unsqueeze(dim=0)
                         out = model1(img1)
                         label1 = torch.argmax(out, dim=-1)
+                        print(pic-1)
                         print(label1)
                             
                         #label1 = torch.tensor([4])    
