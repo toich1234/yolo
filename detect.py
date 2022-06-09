@@ -147,7 +147,6 @@ def run(
     save_c2 = 0
     save_c3 = 0
     pic = 0
-    label1 = torch.tensor([4]) 
     for path, im, im0s, vid_cap, s in dataset:
         t1 = time_sync()
         im = torch.from_numpy(im).to(device)
@@ -266,18 +265,21 @@ def run(
                             
                     label_a = None
                     
-                    if torch.eq(label1, torch.tensor([0])):
-                        label_a = 'Water'
-                        c1 = 0
-                    if torch.eq(label1, torch.tensor([1])):
-                        label_a = 'Wool'
-                        c1 = 1
-                    if torch.eq(label1, torch.tensor([2])):
-                        label_a = 'Dry Cleaning'
-                        c1 = 2
-                    if torch.eq(label1, torch.tensor([3])):
-                        label_a = 'etc'
-                        c1 = 3
+                    if pic > 0:
+                        
+                    
+                        if torch.eq(label1, torch.tensor([0])):
+                            label_a = 'Water'
+                            c1 = 0
+                        if torch.eq(label1, torch.tensor([1])):
+                            label_a = 'Wool'
+                            c1 = 1
+                        if torch.eq(label1, torch.tensor([2])):
+                            label_a = 'Dry Cleaning'
+                            c1 = 2
+                        if torch.eq(label1, torch.tensor([3])):
+                            label_a = 'etc'
+                            c1 = 3
                         
                     
  
