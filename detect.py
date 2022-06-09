@@ -228,7 +228,7 @@ def run(
                     if save_c0 >= 10 or save_c2 >= 10 or save_c3 >= 10:
                         #c = int(cls)  # integer class
                         #label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
-                        #annotator.box_label(xyxy, label, color=colors(c, True))
+                        #annotator.box_label(xyxy, label, color=colors(c, True))out
                         #if save_crop:
                         #save_one_box(xyxy, imc, file=save_dir / 'crops' / names[c] / f'{p.stem}.jpg', BGR=True)
                         pic = pic + 1
@@ -236,12 +236,7 @@ def run(
                         save_c0 = 0
                         save_c2 = 0
                         save_c3 = 0
-
-    
-                        #label1 = torch.tensor([4])    
-                        #label_a = None
-                        #c1 = None
-                        #if pic > 0:
+                        
                         model1 = efficientnet_b2(num_classes=4)
                         device = torch.device('cuda')
 
@@ -253,16 +248,19 @@ def run(
                         list_j=os.listdir(data_dir)
                         len_j=len(list_j)
                         #if len_j == pic:
-                        img = Image.open(data_dir + '/' + list_j[pic-1])
-                        img = transforms.ToTensor()(img)
-                        img = transforms.Normalize((0.1307,),(0.3081,))(img)
-                        img = transforms.Resize((224,224))(img) #,Image.BILINEAR
-                        img = img.unsqueeze(dim=0)
-                        out = model1(img)
+                        img1 = Image.open(data_dir + '/' + list_j[pic-1])
+                        img1 = transforms.ToTensor()(img1)
+                        img1 = transforms.Normalize((0.1307,),(0.3081,))(img1)
+                        img1 = transforms.Resize((224,224))(img1) #,Image.BILINEAR
+                        img1 = img1.unsqueeze(dim=0)
+                        out = model1(img1)
                         label1 = torch.argmax(out, dim=-1)
                         print(label1)
                             
-                            
+                        #label1 = torch.tensor([4])    
+                        #label_a = None
+                        #c1 = None
+                        #if pic > 0:    
                             
                     label_a = None
                     
