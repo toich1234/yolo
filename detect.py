@@ -231,7 +231,7 @@ def run(
                         #list_j=os.listdir(data_dir)
                         #len_j=len(list_j)
                         #if len_j == pic:
-                        img1 = Image.open(data_dir + '/' + str(pic-1) + '.jpg')
+                        img1 = Image.open(data_dir + '/' + str(pic) + '.jpg')
                         img1 = transforms.ToTensor()(img1)
                         img1 = transforms.Normalize((0.1307,),(0.3081,))(img1)
                         img1 = transforms.Resize((224,224))(img1) #,Image.BILINEAR
