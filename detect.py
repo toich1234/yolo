@@ -228,10 +228,10 @@ def run(
                         model1.eval()
                         
                         
-                        list_j=os.listdir(data_dir)
+                        #list_j=os.listdir(data_dir)
                         #len_j=len(list_j)
                         #if len_j == pic:
-                        img1 = Image.open(data_dir + '/' + list_j[pic-1])
+                        img1 = Image.open(data_dir + '/' + str(pic-1) + '.jpg')
                         img1 = transforms.ToTensor()(img1)
                         img1 = transforms.Normalize((0.1307,),(0.3081,))(img1)
                         img1 = transforms.Resize((224,224))(img1) #,Image.BILINEAR
@@ -239,7 +239,7 @@ def run(
                         out = model1(img1)
                         label1 = torch.argmax(out, dim=-1)
                         print(pic-1)
-                        print(list_j[pic-1])
+                        #print(list_j[pic-1])
                         print(label1)
                             
                         #label1 = torch.tensor([4])    
