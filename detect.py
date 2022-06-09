@@ -74,7 +74,7 @@ from utils.plots import Annotator, colors, save_one_box
 from utils.torch_utils import select_device, time_sync
 
 save_dir1=r'E:\KyungHee\K-Fashion'
-data_dir = r"C:/Users/toich/yolo/runs/detect/exp/crops"  
+data_dir = r'C:/Users/toich/yolo/runs/detect/exp/crops'
 
 
 
@@ -222,7 +222,7 @@ def run(
                         save_c3 = 0
                         
                         model1 = efficientnet_b2(num_classes=4)
-                        device1 = torch.device('cuda')
+                        device1 = torch.device('cpu')
 
                         model1.load_state_dict(torch.load(f"{save_dir1}/best.pth", map_location=device1))
                         model1.eval()
@@ -230,7 +230,7 @@ def run(
                         
                         
                         list_j=os.listdir(data_dir)
-                        len_j=len(list_j)
+                        #len_j=len(list_j)
                         #if len_j == pic:
                         img1 = Image.open(data_dir + '/' + list_j[pic-1])
                         img1 = transforms.ToTensor()(img1)
@@ -239,7 +239,7 @@ def run(
                         img1 = img1.unsqueeze(dim=0)
                         out = model1(img1)
                         label1 = torch.argmax(out, dim=-1)
-                        print(pic-1)
+                        print(list_j[pic-1])
                         print(label1)
                             
                         #label1 = torch.tensor([4])    
