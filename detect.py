@@ -75,7 +75,11 @@ from utils.torch_utils import select_device, time_sync
 
 save_dir1=r'E:\KyungHee\K-Fashion'
 data_dir = r'C:/Users/toich/yolo/runs/detect/exp/crops'
+model1 = efficientnet_b2(num_classes=4)
+device1 = torch.device('cpu')
 
+model1.load_state_dict(torch.load(f"{save_dir1}/best.pth", map_location=device1))
+model1.eval()
 
 
 @torch.no_grad()
@@ -209,7 +213,7 @@ def run(
                         save_c3 = save_c3 + 1
 
                     
-                    if save_c0 >= 50 or save_c2 >= 50 or save_c3 >= 50:
+                    if save_c0 >= 3 or save_c2 >= 3 or save_c3 >= 3:
                         #c = int(cls)  # integer class
                         #label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
                         #annotator.box_label(xyxy, label, color=colors(c, True))out
@@ -220,26 +224,14 @@ def run(
                         save_c0 = 0
                         save_c2 = 0
                         save_c3 = 0
-                        
-                        model1 = efficientnet_b2(num_classes=4)
-                        device1 = torch.device('cpu')
-                        
-                        model1.load_state_dict(torch.load(f"{save_dir1}/best.pth", map_location=device1))
-                        model1.eval()
-                        
-                        
-                        #list_j=os.listdir(data_dir)
-                        #len_j=len(list_j)
-                        #if len_j == pic:
                         img1 = Image.open(data_dir + '/' + str(pic) + '.jpg')
                         img1 = transforms.ToTensor()(img1)
                         img1 = transforms.Normalize((0.1307,),(0.3081,))(img1)
-                        img1 = transforms.Resize((224,224))(img1) #,Image.BILINEAR
+                        img1 = transforms.Resize((224,224))(img1)
                         img1 = img1.unsqueeze(dim=0)
                         out = model1(img1)
                         label1 = torch.argmax(out, dim=-1)
                         print(pic)
-                        #print(list_j[pic-1])
                         print(label1)
                             
                         #label1 = torch.tensor([4])    
