@@ -232,7 +232,7 @@ def run(
                     if pic > 0:
                         save_dir1=r'E:\KyungHee\K-Fashion'
                         model1 = efficientnet_b2(num_classes=4)
-                        device = torch.device('cpu')
+                        device = torch.device('cuda')
                         model1.load_state_dict(torch.load(f"{save_dir1}/best.pth", map_location=device))
                         model1.eval()
                         
