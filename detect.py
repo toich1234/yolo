@@ -74,8 +74,6 @@ from utils.plots import Annotator, colors, save_one_box
 from utils.torch_utils import select_device, time_sync
 
 save_dir1=r'E:\KyungHee\K-Fashion'
-model1 = efficientnet_b2(num_classes=4)
-device = torch.device('cpu')
 
 
 
@@ -244,6 +242,9 @@ def run(
                         #label_a = None
                         #c1 = None
                         #if pic > 0:
+                        model1 = efficientnet_b2(num_classes=4)
+                        device = torch.device('cuda')
+
                         model1.load_state_dict(torch.load(f"{save_dir1}/best.pth", map_location=device))
                         model1.eval()
                         
