@@ -223,12 +223,12 @@ def run(
                         
                         model1 = efficientnet_b2(num_classes=4)
                         device1 = torch.device('cpu')
-
+                        
                         model1.load_state_dict(torch.load(f"{save_dir1}/best.pth", map_location=device1))
                         model1.eval()
                         
                         
-                        
+                        list_j=[0]
                         list_j=os.listdir(data_dir)
                         #len_j=len(list_j)
                         #if len_j == pic:
