@@ -209,7 +209,7 @@ def run(
                         save_c3 = save_c3 + 1
 
                     
-                    if save_c0 >= 10 or save_c2 >= 10 or save_c3 >= 10:
+                    if save_c0 >= 50 or save_c2 >= 50 or save_c3 >= 50:
                         #c = int(cls)  # integer class
                         #label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
                         #annotator.box_label(xyxy, label, color=colors(c, True))out
@@ -238,7 +238,7 @@ def run(
                         img1 = img1.unsqueeze(dim=0)
                         out = model1(img1)
                         label1 = torch.argmax(out, dim=-1)
-                        print(pic-1)
+                        print(pic)
                         #print(list_j[pic-1])
                         print(label1)
                             
