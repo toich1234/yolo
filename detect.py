@@ -74,7 +74,7 @@ from utils.plots import Annotator, colors, save_one_box
 from utils.torch_utils import select_device, time_sync
 
 save_dir1=r'E:\KyungHee\K-Fashion'
-
+data_dir = r"C:/Users/toich/yolo/runs/detect/exp/crops"  
 
 
 
@@ -198,22 +198,6 @@ def run(
 
                 # Write results
                 for *xyxy, conf, cls in reversed(det):
-                    '''if cls == 0:  # Write to file    one  outer  pants  top
-                        save_c0 = save_c0 + 1
-                    if cls == 2:
-                        save_c2 = save_c2 + 1
-                    if cls == 3:
-                        save_c3 = save_c3 + 1
-                    if save_c0 == 100:
-                        c0 = True
-                        xywh = (xyxy2xywh(torch.tensor(xyxy).view(1, 4)) / gn).view(-1).tolist()  # normalized xywh
-                        line = (cls, *xywh, conf) if save_conf else (cls, *xywh)  # label format
-                        with open(txt_path + '.txt', 'a') as f:
-                            f.write(('%g ' * len(line)).rstrip() % line + '\n')
-                        save_c0 = 0
-                        save_c2 = 0
-                        save_c3 = 0
-                    '''
 
                     #if save_img or save_crop or view_img:  # Add bbox to image
                     
@@ -238,13 +222,13 @@ def run(
                         save_c3 = 0
                         
                         model1 = efficientnet_b2(num_classes=4)
-                        #device = torch.device('cuda')
+                        device1 = torch.device('cuda')
 
-                        model1.load_state_dict(torch.load(f"{save_dir1}/best.pth", map_location=device))
+                        model1.load_state_dict(torch.load(f"{save_dir1}/best.pth", map_location=device1))
                         model1.eval()
                         
                         
-                        data_dir = r"C:/Users/toich/yolo/runs/detect/exp/crops"  
+                        
                         list_j=os.listdir(data_dir)
                         len_j=len(list_j)
                         #if len_j == pic:
