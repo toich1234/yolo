@@ -147,6 +147,7 @@ def run(
     save_c2 = 0
     save_c3 = 0
     pic = 0
+    label1 = torch.tensor([4]) 
     for path, im, im0s, vid_cap, s in dataset:
         t1 = time_sync()
         im = torch.from_numpy(im).to(device)
@@ -219,6 +220,14 @@ def run(
 
                     #if save_img or save_crop or view_img:  # Add bbox to image
                     
+                    if cls == 0:
+                        save_c0 = save_c0 + 1
+                    if cls == 2:
+                        save_c2 = save_c2 + 1
+                    if cls == 3:
+                        save_c3 = save_c3 + 1
+
+                    
                     if save_c0 >= 10 or save_c2 >= 10 or save_c3 >= 10:
                         #c = int(cls)  # integer class
                         #label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
@@ -232,10 +241,10 @@ def run(
                         save_c3 = 0
 
     
-                    label1 = torch.tensor([4])    
-                    label_a = None
-                    c1 = None
-                    if pic > 0:
+                        #label1 = torch.tensor([4])    
+                        #label_a = None
+                        #c1 = None
+                        #if pic > 0:
                         model1.load_state_dict(torch.load(f"{save_dir1}/best.pth", map_location=device))
                         model1.eval()
                         
@@ -255,12 +264,7 @@ def run(
                             
                             
                             
-                    if cls == 0:
-                        save_c0 = save_c0 + 1
-                    if cls == 2:
-                        save_c2 = save_c2 + 1
-                    if cls == 3:
-                        save_c3 = save_c3 + 1
+                    label_a = None
                     
                     if torch.eq(label1, torch.tensor([0])):
                         label_a = 'Water'
@@ -279,7 +283,7 @@ def run(
  
                     #c = int(cls)  # integer class
                     #label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
-                    if pic > 0 and label_a != None:
+                    if label_a != None:
                         annotator.box_label(xyxy, label_a, color=colors(c1, True))
             
                     #if pic > 10:
