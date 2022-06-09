@@ -228,7 +228,7 @@ def run(
                         model1.eval()
                         
                         
-                        list_j[]=os.listdir(data_dir)
+                        list_j=os.listdir(data_dir)
                         #len_j=len(list_j)
                         #if len_j == pic:
                         img1 = Image.open(data_dir + '/' + list_j[pic-1])
