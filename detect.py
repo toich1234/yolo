@@ -226,7 +226,7 @@ def run(
                         save_c3 = 0
                         img1 = Image.open(data_dir + '/' + str(pic) + '.jpg')
                         img1 = transforms.ToTensor()(img1)
-                        #img1 = transforms.Normalize((0.1307,),(0.3081,))(img1)
+                        img1 = transforms.Normalize((0.1307,),(0.3081,))(img1)
                         img1 = transforms.Resize((224,224))(img1)
                         img1 = img1.unsqueeze(dim=0)
                         out = model1(img1)
